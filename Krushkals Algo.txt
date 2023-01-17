@@ -1,0 +1,55 @@
+import java.util.*;
+class edge implements Comparable{
+    int x;
+    int y;
+    int w;
+    edge(int a,int b,int c){
+        x=a;
+        y=b;
+        w=c;
+    }
+    public String toString(){
+        return x+"--->"+y+"  cost: "+w;
+    } 
+    public int compareTo(Object o){
+        edge e=(edge)(o);
+        return this.w-e.w;
+    }
+}
+class Main{
+    static int find(int x,int[]parent){
+        if(parent[x]==x){
+            return  x;
+        }
+        return find(parent[x],parent);
+    }
+    static void union(int x,int y,int[]parent){
+        int px=find(x,parent);
+        int py=find(y,parent);
+        parent[px]=py;
+    }
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        ArrayList<edge>arr=new ArrayList<>();
+        ArrayList<edge>mst=new ArrayList<>();
+        int n=sc.nextInt();
+        int m=sc.nextInt();
+        for(int i=0;i<m;i++){
+            arr.add(new edge(sc.nextInt(),sc.nextInt(),sc.nextInt()));
+        }
+        int[]parent=new int[n];
+        for(int i=0;i<n;i++){
+            parent[i]=i;
+        }
+        int res=0;
+        for(edge e:arr){
+            if(find(e.x,parent)!=find(e.y,parent)){
+                union(e.x,e.y,parent);
+                mst.add(e);
+                res+=e.w;
+            }
+        }
+        System.out.println(mst);
+        System.out.println(res);
+    }
+}krushkal
