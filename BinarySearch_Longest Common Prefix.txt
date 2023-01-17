@@ -1,0 +1,26 @@
+public String longestCommonPrefix(String[] strs) {
+        int l=0,h=minlen(strs)-1;
+        String ans="";
+        while(l<=h){
+            int m=(l+h)/2;
+            boolean isprefix=true;
+            String temp=strs[0].substring(0,m+1);
+            for(String s:strs){
+                if(!s.substring(0,m+1).equals(temp)){
+                    isprefix=false;
+                    break;
+                }
+            }
+            if(isprefix){
+                ans=temp;
+                l=m+1;
+            }
+            else h=m-1;
+        }
+        return ans;
+    }
+    int minlen(String arr[]){
+        int min=arr[0].length();
+        for(String s:arr) min=Math.min(min,s.length());
+        return min;
+    }longest common prefix
