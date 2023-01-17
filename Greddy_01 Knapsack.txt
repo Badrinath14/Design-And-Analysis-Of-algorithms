@@ -1,0 +1,48 @@
+import java.util.*;
+class cn{
+    private static double getmax(itemvalue arr[],int cap){
+        Arrays.sort(arr,new Comparator<itemvalue>(){
+            public int compare(itemvalue i1,itemvalue i2){
+                double d1=((double)i1.value/
+                (double)i1.item);
+                double d2=((double)i2.value/(double)i2.item);
+                if(d1<d2){
+                    return 1;
+                }
+                else{
+                    return -1;
+                }
+            }
+        });
+        double sum=0;
+        for(itemvalue x:arr){
+            if(cap-x.item>=0){
+                sum+=x.value;
+                cap-=x.item;
+            }
+            else{
+                sum+=(cap*((double)x.value/(double)x.item));
+                break;
+            }
+        }
+        return sum;
+    }
+    public static class itemvalue{
+        int item;
+        int value;
+        itemvalue(int i,int j){
+            item=i;
+            value=j;
+        }
+    }
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        int cap=sc.nextInt();
+        itemvalue arr[]=new itemvalue[n];
+        for(int i=0;i<n;i++){
+            arr[i]=new itemvalue(sc.nextInt(), sc.nextInt());
+        }
+        System.out.println(getmax(arr, cap));
+    }
+}01 knapsack using greedy
