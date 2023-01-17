@@ -1,0 +1,24 @@
+ArrayList<Integer> noSibling(Node node)
+    {
+        Queue<Node>q=new LinkedList<>();
+        ArrayList<Integer>ans=new ArrayList<>();
+        q.add(node);
+        while(!q.isEmpty()){
+            Node temp=q.poll();
+            if(temp.left==null && temp.right!=null){
+                ans.add(temp.right.data);
+                q.add(temp.right);
+            }
+            else if(temp.left!=null && temp.right==null){
+                ans.add(temp.left.data);
+                q.add(temp.left);
+            }
+            else if(temp.left!=null && temp.right!=null){
+                q.add(temp.right);
+                q.add(temp.left);
+            }
+        }
+        Collections.sort(ans);
+        if(ans.size()==0) ans.add(-1);
+        return ans;
+    }lonely nodes
