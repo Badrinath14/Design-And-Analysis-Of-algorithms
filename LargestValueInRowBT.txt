@@ -1,0 +1,18 @@
+public List<Integer> largestValues(TreeNode root) {
+        List<Integer>ans=new ArrayList<>();
+        if(root==null) return ans;
+        Queue<TreeNode>q=new LinkedList<>();
+        q.add(root);
+        while(!q.isEmpty()){
+            int l=q.size();
+            int f=Integer.MIN_VALUE;
+            for(int i=0;i<l;i++){
+                TreeNode temp=q.poll();
+                f=Math.max(f,temp.val);
+                if(temp.left!=null) q.add(temp.left);
+                if(temp.right!=null) q.add(temp.right);
+            }
+            ans.add(f);
+        }
+        return ans;
+    }largest val in tree row
