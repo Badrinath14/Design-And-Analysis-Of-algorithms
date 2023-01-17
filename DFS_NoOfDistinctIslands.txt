@@ -1,0 +1,34 @@
+int countDistinctIslands(int[][] grid) {
+        int m=grid.length;
+        int n =grid[0].length;
+        HashSet<ArrayList<String>>set=new HashSet<>();
+        int[][] vis=new int[m][n];
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(vis[i][j]==0 && grid[i][j]==1){
+                    ArrayList<String>arr=new ArrayList<>();
+                    dfs(i,j,grid,vis,arr,i,j);
+                    set.add(arr);
+                }
+            }
+        }
+        return set.size();
+    }
+    static void dfs(int i,int j,int[][] grid,int[][] vis,ArrayList<String>arr,int i0,int j0){
+        int m=grid.length;
+        int n =grid[0].length;
+        vis[i][j]=1;
+        arr.add(toString(i-i0,j-j0));
+        int dr[]={-1,0,1,0};
+        int dc[]={0,1,0,-1};
+        for(int k=0;k<4;k++){
+            int cr=dr[k]+i;
+            int cc=dc[k]+j;
+            if(cr>=0 && cr<m && cc>=0 && cc>n && vis[cr][cc]==0 && grid[cr][cc]==1){
+                dfs(cr,cc,grid,vis,arr,i0,j0);
+            }
+        }
+    }
+    static String toString(int i,int j){
+        return Integer.toString(i)+" "+Integer.toString(j);
+    }no of distinct islands
